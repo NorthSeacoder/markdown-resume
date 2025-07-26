@@ -2,6 +2,7 @@ import { resumePath } from "#root/config.js";
 import { readFile, writeFile, access, mkdir } from "fs/promises";
 import browserSync from "browser-sync";
 import marked from "marked";
+import customHeadingId from "marked-custom-heading-id";
 import path from "path";
 
 const renderer = {
@@ -11,6 +12,7 @@ const renderer = {
 };
 
 marked.use({ renderer });
+marked.use(customHeadingId());
 
 export function decorateHtml(html) {
   return `

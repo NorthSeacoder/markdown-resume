@@ -11,18 +11,15 @@ importers:
       browser-sync:
         specifier: ^3.0.4
         version: 3.0.4
-      browsersync:
-        specifier: 0.0.1-security
-        version: 0.0.1-security
       github-markdown-css:
         specifier: ^5.2.0
         version: 5.8.1
       marked:
         specifier: ^3.0.0
         version: 3.0.8
-      ws:
-        specifier: ^8.8.1
-        version: 8.18.3
+      marked-custom-heading-id:
+        specifier: ^2.0.15
+        version: 2.0.15(marked@3.0.8)
 
 packages:
 
@@ -90,9 +87,6 @@ packages:
     resolution: {integrity: sha512-mcYOIy4BW6sWSEnTSBjQwWsnbx2btZX78ajTTjdNfyC/EqQVcIe0nQR6894RNAMtvlfAnLaH9L2ka97zpvgenA==}
     engines: {node: '>= 8.0.0'}
     hasBin: true
-
-  browsersync@0.0.1-security:
-    resolution: {integrity: sha512-wjzQ8ovoNf6afqXLqAbpfa81XkG0U46G1YMi6xa1mnQ844/zz7bp4qnuMO/cL0WIunsC7i8sh/7CpzADM5gCBg==}
 
   bs-recipes@1.3.4:
     resolution: {integrity: sha512-BXvDkqhDNxXEjeGM8LFkSbR+jzmP/CYpCiVKYn+soB1dDldeU15EBNDkwVXndKuX35wnNUaPd0qSoQEAkmQtMw==}
@@ -336,6 +330,11 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
+  marked-custom-heading-id@2.0.15:
+    resolution: {integrity: sha512-V/VAQkd240lwS/h5Noqm3bnMeK8lA97aG108zddZWttrPihMJ6iVp0w6ZJrbHuWWA0755GaQUIhq41i9UE6Z5A==}
+    peerDependencies:
+      marked: '>=1 <17'
+
   marked@3.0.8:
     resolution: {integrity: sha512-0gVrAjo5m0VZSJb4rpL59K1unJAMb/hm8HRXqasD8VeC8m91ytDPMritgFSlKonfdt+rRYYpP/JfLxgIX8yoSw==}
     engines: {node: '>= 12'}
@@ -551,18 +550,6 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.18.3:
-    resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
   xmlhttprequest-ssl@2.1.2:
     resolution: {integrity: sha512-TEU+nJVUUnA4CYJFLvK5X9AOeH4KvDvhIfm0vV1GaQRtchnG0hgK5p8hw/xjv8cunWYCsiPCSDzObPyhEwq3KQ==}
     engines: {node: '>=0.4.0'}
@@ -685,8 +672,6 @@ snapshots:
       - debug
       - supports-color
       - utf-8-validate
-
-  browsersync@0.0.1-security: {}
 
   bs-recipes@1.3.4: {}
 
@@ -916,6 +901,10 @@ snapshots:
   lodash.isfinite@3.3.2: {}
 
   lodash@4.17.21: {}
+
+  marked-custom-heading-id@2.0.15(marked@3.0.8):
+    dependencies:
+      marked: 3.0.8
 
   marked@3.0.8: {}
 
@@ -1151,8 +1140,6 @@ snapshots:
       strip-ansi: 6.0.1
 
   ws@8.17.1: {}
-
-  ws@8.18.3: {}
 
   xmlhttprequest-ssl@2.1.2: {}
 
