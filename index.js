@@ -1,12 +1,8 @@
-import marked from "marked";
+import { resumePath } from "#root/config.js";
 import { readFile, writeFile, access, mkdir } from "fs/promises";
+import browserSync from "browser-sync";
+import marked from "marked";
 import path from "path";
-import {
-  resumePath,
-  distPath,
-  stylePath,
-  websocketPath,
-} from "#root/config.js";
 
 const renderer = {
   table(header, body) {
@@ -19,16 +15,15 @@ marked.use({ renderer });
 export function decorateHtml(html) {
   return `
     <!DOCTYPE html>
-    <html>
+    <html lang="zh-CN">
       <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="${stylePath}" type="text/css"></link>
+        <link rel="stylesheet" href="/styles/index.css" type="text/css"></link>
       </head>
       <body class="markdown-body">
         <div id="custom">
           ${html}
         </div>
-        <script src="${websocketPath}"></script>
       </body>
      </html>
 `;
@@ -37,14 +32,7 @@ export function decorateHtml(html) {
 export async function exportMarkdown2Html() {
   const html = await convertMarkdown2Html();
   const content = decorateHtml(html);
-  const dir = path.dirname(distPath);
-
-  try {
-    await access(dir);
-  } catch (e) {
-    await mkdir(dir);
-  }
-  await save(distPath, content);
+  await save('./resume.html', content);
 }
 
 export async function convertMarkdown2Html() {
@@ -65,3 +53,27 @@ async function save(dist, content) {
     console.log(e);
   }
 }
+
+exportMarkdown2Html();
+
+browserSync({
+  server: {
+    baseDir: ".",
+    index: "resume.html"
+  },
+  files: [
+    {
+      match: ["styles/*.css"],
+      fn: () => {
+        browserSync.reload("*.css");
+      }
+    },
+    {
+      match: [resumePath],
+      fn: () => {
+        exportMarkdown2Html();
+        browserSync.reload();
+      }
+    }
+  ]
+});

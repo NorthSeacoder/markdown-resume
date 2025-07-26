@@ -1,18 +1,17 @@
 {
-  "name": "resume",
+  "name": "markdown-resume",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Spike <l-yanlei@hotmail.com>",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "node ./src/script/dev.js",
-    "build": "node ./src/script/build.js"
+    "start": "node ./index"
   },
   "dependencies": {
+    "browser-sync": "^3.0.4",
     "github-markdown-css": "^5.2.0",
-    "marked": "^3.0.0",
-    "ws": "^8.8.1"
+    "marked": "^3.0.0"
   },
   "imports": {
     "#root/*": "./*",
