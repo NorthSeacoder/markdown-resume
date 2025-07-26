@@ -1,5 +1,5 @@
 import { resumePath } from "#root/config.js";
-import { readFile, writeFile, access, mkdir } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 import browserSync from "browser-sync";
 import marked from "marked";
 import customHeadingId from "marked-custom-heading-id";
@@ -13,6 +13,23 @@ const renderer = {
 
 marked.use({ renderer });
 marked.use(customHeadingId());
+
+export async function convertMarkdown2Html() {
+  try {
+    const data = await readFile(resumePath, "utf8");
+    const html = await marked(data);
+    return html;
+  } catch (e) {
+    console.log(e);
+    return "";
+  }
+}
+
+export async function exportMarkdown2Html() {
+  const html = await convertMarkdown2Html();
+  const content = decorateHtml(html);
+  await save('./resume.html', content);
+}
 
 export function decorateHtml(html) {
   return `
@@ -29,23 +46,6 @@ export function decorateHtml(html) {
       </body>
      </html>
 `;
-}
-
-export async function exportMarkdown2Html() {
-  const html = await convertMarkdown2Html();
-  const content = decorateHtml(html);
-  await save('./resume.html', content);
-}
-
-export async function convertMarkdown2Html() {
-  try {
-    const data = await readFile(resumePath, "utf8");
-    const html = await marked(data);
-    return html;
-  } catch (e) {
-    console.log(e);
-    return "";
-  }
 }
 
 async function save(dist, content) {
