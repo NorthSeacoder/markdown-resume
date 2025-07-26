@@ -1,5 +1,6 @@
 import marked from "marked";
 import { readFile, writeFile, access, mkdir } from "fs/promises";
+import path from "path";
 import {
   resumePath,
   distPath,
@@ -36,14 +37,14 @@ export function decorateHtml(html) {
 export async function exportMarkdown2Html() {
   const html = await convertMarkdown2Html();
   const content = decorateHtml(html);
+  const dir = path.dirname(distPath);
 
   try {
-    await access(distPath);
-    save(distPath, content);
+    await access(dir);
   } catch (e) {
-    await mkdir(distPath);
-    save(distPath, content);
+    await mkdir(dir);
   }
+  await save(distPath, content);
 }
 
 export async function convertMarkdown2Html() {
